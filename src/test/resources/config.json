@@ -1,0 +1,6 @@
+{
+	"driverArgs": {
+		"--headless": true,
+		"--window-size=1366,768": true
+	}
+}
