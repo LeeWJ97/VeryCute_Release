@@ -5,18 +5,14 @@ import com.verycute.springconfig.annotation.LazyAutowired;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import com.verycute.pages.Search;
-import com.verycute.CucumberSpringApplication;
 
 
-public class browserTestStepdefs_PO {
-    //@Autowired
-    private WebDriver driver = DriverFactory.getDriver();
+public class browserTestStepdefs_baidu {
+    @LazyAutowired
+    private WebDriver driver;
     @LazyAutowired   //need to lazyautowired, beacause webdriver init in hook @before, not in the starter
     private Search search;
 

@@ -11,8 +11,8 @@ import org.openqa.selenium.WebDriver;
 
 
 public class browserTestStepdefs_sogou {
-    //@Autowired
-    private WebDriver driver = DriverFactory.getDriver();
+    @LazyAutowired
+    private WebDriver driver;
     @LazyAutowired   //need to lazyautowired, beacause webdriver init in hook @before, not in the starter
     private SogouSearch search;
 

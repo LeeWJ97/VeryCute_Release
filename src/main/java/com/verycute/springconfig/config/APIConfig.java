@@ -1,24 +1,22 @@
 package com.verycute.springconfig.config;
 
+import com.verycute.factory.APIFactory;
 import com.verycute.factory.DriverFactory;
 import com.verycute.springconfig.annotation.LazyConfiguration;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 
 @LazyConfiguration
-public class WebDriverConfig {
+public class APIConfig {
 
-    @Bean(name = "webDriver")
-    @Primary
+    @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public WebDriver webDriver() {
-        return DriverFactory.getDriver();
+    public RestAssured API() {
+        return APIFactory.getAPI();
     }
 }
 

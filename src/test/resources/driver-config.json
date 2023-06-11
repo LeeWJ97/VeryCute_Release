@@ -1,0 +1,7 @@
+{
+	"driverArgs": {
+		"--headless": true,
+		"--window-size=1366,768": true,
+		"--proxy-server=http://127.0.0.1:8080": false
+	}
+}

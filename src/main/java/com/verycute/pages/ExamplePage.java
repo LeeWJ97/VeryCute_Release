@@ -3,6 +3,7 @@ package com.verycute.pages;
 import com.verycute.factory.DriverFactory;
 import com.verycute.springconfig.annotation.LazyAutowired;
 import com.verycute.springconfig.annotation.PageObject;
+import com.verycute.utils.DriverUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,62 +19,43 @@ import java.time.Duration;
 
 
 @PageObject
-public class Search extends LoadableComponent<Search> {
+public class ExamplePage<T> {
     private WebDriver driver;
     @LazyAutowired
     private WebDriverWait wait;
 
-    @FindBy(xpath = "//*[@id='kw']")
-    public WebElement searchInput;
-
-    @FindBy(xpath = "//*[@id='su']")
-    public WebElement searchBtn;
+    @FindBy(xpath = "//a")
+    public WebElement link;
 
     @Autowired
-    public Search(WebDriver driver) {
-        this.driver =  driver;
-        //wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+    public ExamplePage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public void setInputText(String text){
-        wait.until(ExpectedConditions.visibilityOf(searchInput)).clear();
-        searchInput.sendKeys(text);
+    public void clickLink(){
+        DriverUtils.tryClickElement(link);
     }
 
-    public void sumbitSearch(){
-        //wait.until(ExpectedConditions.elementToBeClickable(searchBtn)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(searchInput)).submit();
-    }
 
-    public String getTitle(final String titleStartsWith) {
-        try {
-            wait.until((ExpectedCondition<Boolean>) d -> d.getTitle().toLowerCase().startsWith(titleStartsWith));
-        }
-        finally {
-            return driver.getTitle();
-        }
-    }
-
-    @Override
     public void load() {
-        driver.get("https://baidu.com");
+        driver.get("https://www.example.com");
     }
 
-    @Override
-    public void isLoaded() {
+
+    public void isLoaded() throws Error {
         String url = driver.getCurrentUrl();
-        Assert.isTrue(url.contains("baidu.com"), "Not on the issue entry page: " + url);
+        Assert.isTrue(url.contains("https://www.example.com"), "Not on the issue entry page: " + url);
     }
 
-    @Override
-    public Search get() {
+
+    public T get() {
         try {
             this.load();
             this.isLoaded();
-            return this;
+            return (T) this;
         } catch (Exception var2) {
+            System.out.println("try to reload...");
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
@@ -81,7 +63,7 @@ public class Search extends LoadableComponent<Search> {
             }
             this.load();
             this.isLoaded();
-            return this;
+            return (T) this;
         }
     }
 

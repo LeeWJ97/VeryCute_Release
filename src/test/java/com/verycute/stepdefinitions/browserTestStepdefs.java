@@ -1,6 +1,7 @@
 package com.verycute.stepdefinitions;
 
 import com.verycute.factory.DriverFactory;
+import com.verycute.springconfig.annotation.LazyAutowired;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,8 +18,8 @@ import java.time.Duration;
 
 
 public class browserTestStepdefs {
-
-    private WebDriver driver = DriverFactory.getDriver();
+    @LazyAutowired
+    private WebDriver driver;
 //    @Autowired
 //    private WebDriver driver;
 

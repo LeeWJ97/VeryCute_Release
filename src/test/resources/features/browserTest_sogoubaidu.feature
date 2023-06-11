@@ -1,4 +1,4 @@
-@POTest @debug
+@POTest
 Feature: sogou baidu Search Test
 
   Scenario Outline:  sogou baidu

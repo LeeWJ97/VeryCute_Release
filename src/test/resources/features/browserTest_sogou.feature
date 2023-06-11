@@ -1,4 +1,4 @@
-@POTest @debug
+@POTest
 Feature: sogou Search Test
 
   Scenario Outline:  Finding some sogou

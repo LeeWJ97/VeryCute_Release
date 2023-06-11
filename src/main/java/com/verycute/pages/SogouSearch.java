@@ -1,6 +1,7 @@
 package com.verycute.pages;
 
 import com.verycute.factory.DriverFactory;
+import com.verycute.springconfig.annotation.LazyAutowired;
 import com.verycute.springconfig.annotation.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import java.time.Duration;
@@ -17,7 +19,10 @@ import java.time.Duration;
 
 @PageObject
 public class SogouSearch extends LoadableComponent<SogouSearch> {
+
     private WebDriver driver;
+
+    @LazyAutowired
     private WebDriverWait wait;
 
     @FindBy(xpath = "//*[@name='query']")
@@ -26,10 +31,10 @@ public class SogouSearch extends LoadableComponent<SogouSearch> {
     @FindBy(xpath = "//*[@id='stb']")
     public WebElement searchBtn;
 
-
-    public SogouSearch() {
-        this.driver =  DriverFactory.getDriver();;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    @Autowired
+    public SogouSearch(WebDriver driver) {
+        this.driver =  driver;
+        //wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         PageFactory.initElements(driver, this);
     }
