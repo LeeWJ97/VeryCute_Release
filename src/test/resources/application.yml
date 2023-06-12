@@ -17,3 +17,7 @@ driver:
     timeout: 12
   config:
     filename: target/test-classes/driver-config.json
+
+api:
+  config:
+    filename: target/test-classes/api-config.json

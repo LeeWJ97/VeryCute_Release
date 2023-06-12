@@ -10,6 +10,7 @@ import io.restassured.specification.RequestSpecification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import io.restassured.RestAssured;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 
@@ -17,24 +18,22 @@ import static org.hamcrest.Matchers.*;
 
 public class ApiTestSteps {
     private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
+
     @LazyAutowired
-    private RestAssured ra;
     private RequestSpecification rs;
     private Response response;
 
+
     @Given("I have the API endpoint {string}")
     public void setAPIEndpoint(String endpoint) {
-         rs = ra.given().baseUri(endpoint);
-         // set a default UA
-         rs = rs.given().headers("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Mobile Safari/537.36 Edg/112.0.1722.64");
-         //rs.relaxedHTTPSValidation();
-         //rs.proxy("127.0.0.1", 8080);
-         //TODO: Move to config file
-    }
+         rs = rs.given().baseUri(endpoint);
+            }
 
     @Given("I have set the following headers:")
     public void setHeaders(Map<String, String> headers) {
         rs = rs.given().headers(headers);
+        // set a default UA
+        // rs = rs.given().headers("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36");
     }
 
     @Given("I have set the JSON body: {string}")

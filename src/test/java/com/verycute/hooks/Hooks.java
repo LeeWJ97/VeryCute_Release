@@ -50,18 +50,18 @@ public class Hooks {
 
 
 
-    @Before(order = 200)
-    public void openBrowser(Scenario scenario) {
-//        if (!scenario.getName().toLowerCase().startsWith("api")){
-//            DriverFactory driverFactory = new DriverFactory();
-//            driver = driverFactory.initDriver();
-//        }
-//        else if (scenario.getName().toLowerCase().startsWith("api")){
-//            APIFactory apiFactory = new APIFactory();
-//            ra = apiFactory.initAPI();
-//        }
-
-    }
+//    @Before(order = 200)
+//    public void openBrowser(Scenario scenario) {
+////        if (!scenario.getName().toLowerCase().startsWith("api")){
+////            DriverFactory driverFactory = new DriverFactory();
+////            driver = driverFactory.initDriver();
+////        }
+////        else if (scenario.getName().toLowerCase().startsWith("api")){
+////            APIFactory apiFactory = new APIFactory();
+////            ra = apiFactory.initAPI();
+////        }
+//
+//    }
     @After(order = 100)
     public void closeBrowser(Scenario scenario) {
         if (DriverFactory.threadLocalWebDriver.get() != null) {
