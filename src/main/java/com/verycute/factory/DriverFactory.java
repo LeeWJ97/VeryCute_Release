@@ -62,7 +62,7 @@ public class DriverFactory {
         }
     }
 
-    public static synchronized WebDriver getDriver() {
+    public static WebDriver getDriver() {
         if (threadLocalWebDriver.get() != null){
             return threadLocalWebDriver.get(); //For Parallel execution
         }
@@ -71,8 +71,12 @@ public class DriverFactory {
             return driverFactory.initDriver();
         }
     }
-    public static synchronized void removeDriver() {
-        threadLocalWebDriver.get().quit();
-        threadLocalWebDriver.remove();
+    public static void removeDriver() {
+        try {
+            threadLocalWebDriver.get().quit();
+        } finally {
+            threadLocalWebDriver.remove();
+        }
+
     }
 }

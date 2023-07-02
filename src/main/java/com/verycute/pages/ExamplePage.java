@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 
 import java.time.Duration;
@@ -21,6 +22,7 @@ import java.time.Duration;
 @PageObject
 public class ExamplePage<T> {
     private WebDriver driver;
+    @Qualifier("webDriverWait")
     @LazyAutowired
     private WebDriverWait wait;
 
@@ -28,7 +30,7 @@ public class ExamplePage<T> {
     public WebElement link;
 
     @Autowired
-    public ExamplePage(WebDriver driver) {
+    public ExamplePage(@Qualifier("webDriver") WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }

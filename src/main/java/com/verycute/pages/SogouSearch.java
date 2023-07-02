@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 
 import java.time.Duration;
@@ -22,6 +23,7 @@ public class SogouSearch extends LoadableComponent<SogouSearch> {
 
     private WebDriver driver;
 
+    @Qualifier("webDriverWait")
     @LazyAutowired
     private WebDriverWait wait;
 

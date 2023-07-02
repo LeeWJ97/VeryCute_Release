@@ -1,20 +1,18 @@
 package com.verycute.hooks;
 
 import com.verycute.factory.APIFactory;
+import com.verycute.factory.AppDriverFactory;
 import com.verycute.factory.DriverFactory;
 import com.verycute.springconfig.annotation.LazyAutowired;
+import io.appium.java_client.AppiumDriver;
 import io.cucumber.java.*;
-import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import com.verycute.utils.DateTimeUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
 import java.io.File;
@@ -24,14 +22,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-@SpringBootTest
 public class Hooks {
     private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
 
     @LazyAutowired
     private ApplicationContext applicationContext;
+
     @LazyAutowired
+    @Qualifier("webDriver")
     private WebDriver driver;
+
+    @LazyAutowired
+    private AppiumDriver appdriver;
     @LazyAutowired
     @Qualifier("takesScreenshot")
     private TakesScreenshot ts;   //WebDriver and TakesScreenshot are the matching bean, need @Qualifier (In the context of Selenium WebDriver, the TakesScreenshot interface is typically implemented by the WebDriver class or its subclasses. The TakesScreenshot interface provides a method getScreenshotAs() to capture screenshots.)
@@ -64,12 +66,20 @@ public class Hooks {
 //    }
     @After(order = 100)
     public void closeBrowser(Scenario scenario) {
+        logger.info("start to clean up...");
         if (DriverFactory.threadLocalWebDriver.get() != null) {
+            logger.info("start to clean up webdriver...");
             DriverFactory.removeDriver();
         }
         if (APIFactory.threadLocalAPI.get() != null) {
+            logger.info("start to clean up api...");
             APIFactory.removeAPI();
         }
+        if (AppDriverFactory.threadLocalMachineInfo.get() != null) {
+            logger.info("start to clean up appdriver...");
+            AppDriverFactory.removeDriver();
+        }
+
     }
 
 //    @BeforeStep(order = 200)
@@ -80,7 +90,7 @@ public class Hooks {
 
     @AfterStep(order = 200)
     public void takeScreenshotAndTrace(Scenario scenario) throws IOException {
-        if (scenario.isFailed() && (DriverFactory.threadLocalWebDriver.get() != null)) {
+        if (scenario.isFailed() && ((DriverFactory.threadLocalWebDriver.get() != null) || (AppDriverFactory.threadLocalAppDriver.get() != null))) {
             //WebDriver driver = DriverFactory.getDriver();
             String regex = "[\\\\/:*?\"<>|]";
             String screenshotName = scenario.getName().replaceAll(regex, "_");

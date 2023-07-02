@@ -160,7 +160,7 @@ public class MailExtension implements ConcurrentEventListener {
 
 
     public static void backupLog() throws IOException {
-        String testResultContent = IOUtils.readTextFile(logFile, "UTF-8");
+        //String testResultContent = IOUtils.readTextFile(logFile, "UTF-8");
 
         String today = DateTimeUtils.formatDateText(DateTimeUtils.timestampToDate(DateTimeUtils.getCurrentTimestamp()));
         String regex = "[\\\\/:*?\"<>|]";

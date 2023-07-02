@@ -1,0 +1,14 @@
+{
+	"Name": {
+		"PlatformName": "Android",
+		"AutomationName": "uiautomator2"
+	},
+	"driverArgs": {
+		"appPackage": "com.android.chrome",
+		"appActivity": "com.google.android.apps.chrome.Main",
+		"uiautomator2ServerLaunchTimeout": "60000",
+		"adbExecTimeout": "60000",
+		"noReset": "false"
+	}
+}
+

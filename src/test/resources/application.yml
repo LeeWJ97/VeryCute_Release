@@ -18,6 +18,14 @@ driver:
   config:
     filename: target/test-classes/driver-config.json
 
+
+appdriver:
+  default:
+    timeout: 180
+  config:
+    filename: target/test-classes/appdriver-config.json
+  machinepool: http://127.0.0.1:1|emulator-5558,http://127.0.0.1:2|emulator-5560
+
 api:
   config:
     filename: target/test-classes/api-config.json

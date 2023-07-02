@@ -10,7 +10,7 @@
 
         <!-- defaults to UTF-8 -->
 
-        <encoding>UTF-8</encoding>   <!-- no specific utf-8 here, beacause it is gbk when running in cmd, is utf8 running in idea-->
+        <encoding>UTF-8</encoding>
         <!-- protocol for script and stylesheets -->
 
         <!-- defaults to https -->
